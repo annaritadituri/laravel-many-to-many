@@ -14,6 +14,11 @@
         <p class="text-center">{{ $project->description }}</p>
         <p>{{ $project->in_progress }}</p>
         <p>Tipo: {{ $project->type?->name ?: 'non definito' }}</p>
+        <p>Tecnologie:
+            @foreach ($project->technologies as $technology)
+                {{ $technology->name }}
+            @endforeach
+        </p>
 
     </div>
     

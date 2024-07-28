@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Str;
 
@@ -28,7 +29,8 @@ class ProjectController extends Controller
     {
 
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
 
     }
 
@@ -50,6 +52,9 @@ class ProjectController extends Controller
         $project->type_id = $data['type_id'];
 
         $project->save();
+        if($request->has('technology_id')) {
+            $project->technologies()->attach($request->technology_id);
+        }
 
         return redirect()->route('admin.projects.index')->with('status', 'Progetto creato');
 

@@ -28,6 +28,7 @@ class StoreProjectRequest extends FormRequest
             'start_date' => 'date',
             'in_progress' => 'between:0,1',
             'type_id' => 'exists:types,id',
+            'technology_id' => 'exists:technologies,id'
             
         ];
     }

@@ -85,6 +85,22 @@
                     @endforeach
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="technology" class="form-label">Technology</label>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    @foreach ($technologies as $technology)
+                        <input
+                            type="checkbox"
+                            class="btn-check"
+                            id="technology-{{ $technology->id }}"
+                            name="technology_id[]"
+                            value="{{ $technology->id }}"
+                            {{ $project->technologies->contains($technology) ? 'checked' : ''}}
+                        >
+                        <label class="btn btn-outline-primary" for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
+                    @endforeach 
+                </div>
+            </div>
 
             <button type="submit" class="btn btn-primary mb-3 d-block">CREA</button>
         </form>

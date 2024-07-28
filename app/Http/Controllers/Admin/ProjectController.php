@@ -75,9 +75,11 @@ class ProjectController extends Controller
     {
 
         $types = Type::all();
+        $technologies = Technology::all();
         $data = [
             'project' => $project,
             'types' => $types,
+            'technologies' => $technologies,
         ];
         return view('admin.projects.edit', $data);
 
@@ -90,9 +92,14 @@ class ProjectController extends Controller
     {
         
         $data = $request->validated();
+
         $slug = Str::of($data['title'])->slug();
         $project->slug = $slug;
+        if($request->has('technology_id')) {
+            $project->technologies()->sync($request->technology_id);
+        }
         $project->update($data);
+    
         return redirect()->route('admin.projects.show', $project)->with('status', 'Info progetto aggiornate');
 
     }
